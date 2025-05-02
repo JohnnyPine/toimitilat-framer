@@ -1,0 +1,26 @@
+  name: Fetch Toimitilat Data
+
+  on:
+    schedule:
+      - cron: '0 0 * * *' # Suoritetaan päivittäin klo 00:00 UTC
+    workflow_dispatch:
+
+  jobs:
+    fetch:
+      runs-on: ubuntu-latest
+      steps:
+        - uses: actions/checkout@v2
+        - name: Asenna Node.js
+          uses: actions/setup-node@v2
+          with:
+            node-version: '14'
+        - name: Suorita skripti
+          run: |
+            node fetch_toimitilat.js
+        - name: Commit ja push
+          run: |
+            git config user.name 'GitHub Actions'
+            git config user.email 'actions@github.com'
+            git add toimitilat.json
+            git commit -m 'Päivitetty toimitilatiedot'
+            git push
