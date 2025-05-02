@@ -1,4 +1,4 @@
-name: Päivitä toimitilatiedot
+name: Päivitä toimitilatiedott
 
 on:
   schedule:
